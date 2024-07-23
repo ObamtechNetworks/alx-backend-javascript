@@ -1,5 +1,6 @@
 export default function createIteratorObject(report) {
   // Extract all employees from all departments into a single array
+  // i.e to have an iterator
   const allEmployees = [];
   for (const department of Object.values(report.allEmployees)) {
     allEmployees.push(...department);
