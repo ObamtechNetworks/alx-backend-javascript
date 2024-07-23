@@ -12,6 +12,7 @@ export default function createIteratorObject(report) {
       return {
         next() {
           if (index < allEmployees.length) {
+            // eslint-disable-next-line no-plusplus
             return { value: allEmployees[index++], done: false };
           }
           return { value: undefined, done: true };
