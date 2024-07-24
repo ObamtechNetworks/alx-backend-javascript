@@ -1,24 +1,21 @@
-function uploadPhoto(promise) {
-  return promise
-    .then(() => {
-      return {
-        status: 200,
-        body: 'success'
-      };
-    }).catch(() => {
-      throw Error();
-    });
+function uploadPhoto() {
+  // return promise directly
+  return new Promise((resolve) => {
+  // simulate async operation
+    setTimeout(() => resolve({
+      status: 200,
+      body: 'photo-profile-1',
+    }), 100);
+  });
 }
 
-function createUser(promise) {
-  return promise
-    .then(() => {
-
-    }).catch(() => {
-
-    }).finally(() => {
-
-    });
+function createUser() {
+  return new Promise((resolve) => {
+    setTimeout(() => resolve({
+      firstName: 'Guillaume',
+      lastName: 'Salva',
+    }), 100);
+  });
 }
 
-export default { uploadPhoto, createUser };
+export { uploadPhoto, createUser };
