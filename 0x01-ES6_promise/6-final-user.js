@@ -13,6 +13,6 @@ export default async function handleProfileSignup(firstName, lastName, fileName)
     if (result.status === 'fulfilled') {
       return { status: result.status, value: result.value };
     }
-    return { status: result.status, value: result.reason };
+    return { value: result.reason };
   });
 }
