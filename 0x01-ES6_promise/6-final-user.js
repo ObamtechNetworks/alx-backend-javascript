@@ -1,9 +1,8 @@
 import signUpUser from './4-user-promise';
 import uploadPhoto from './5-photo-reject';
 
-// eslint-disable-next-line consistent-return
 export default function handleProfileSignup(firstName, lastName, fileName) {
-  if (typeof firstName === 'string' || typeof lastName === 'string' || typeof fileName === 'string') {
+  if (typeof firstName === 'string' && typeof lastName === 'string' && typeof fileName === 'string') {
     return Promise.allSettled([
       signUpUser(firstName, lastName),
       uploadPhoto(fileName),
@@ -14,4 +13,6 @@ export default function handleProfileSignup(firstName, lastName, fileName) {
       return { status: result.status, value: result.reason };
     }));
   }
+  // Return an empty array or an appropriate response when input validation fails
+  return Promise.resolve([]);
 }
