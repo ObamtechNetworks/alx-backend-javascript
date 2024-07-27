@@ -1,0 +1,17 @@
+{
+	"version": "2.0.0",
+	"tasks": [
+		{
+			"type": "npm",
+			"script": "full-test",
+			"path": "0x02-ES6_classes",
+			"problemMatcher": [],
+			"label": "npm: full-test - 0x02-ES6_classes",
+			"detail": "./node_modules/.bin/eslint [0-9]*.js && jest",
+			"group": {
+				"kind": "build",
+				"isDefault": true
+			}
+		}
+	]
+}
