@@ -2,14 +2,11 @@ export default class Building {
   constructor(sqft) {
     /* eslint-disable no-underscore-dangle */
     this._sqft = sqft;
-
-    try {
+    setTimeout(() => {
       if (this.evacuationWarningMessage === undefined) {
         throw new Error('Class extending Building must override evacuationWarningMessage');
       }
-    } catch (error) {
-      return error;
-    }
+    }, 0);
   }
 
   get sqft() {
