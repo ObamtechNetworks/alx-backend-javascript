@@ -1,13 +1,29 @@
-const request = require('request');
-const { expect } = require('chai');
-const app = require('./api'); // Load the app
-
-describe('Index page', () => {
-  it('should return status 200 and correct message', (done) => {
-    request('http://localhost:7865', (error, response, body) => {
-      expect(response.statusCode).to.equal(200);
-      chai.expect(body).to.equal('Welcome to the payment system');
-      done();
+describe('GET /available_payments', () => {
+    it('should return available payment methods', (done) => {
+        chai.request(server)
+            .get('/available_payments')
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                expect(res.body).to.deep.equal({
+                    payment_methods: {
+                        credit_cards: true,
+                        paypal: false
+                    }
+                });
+                done();
+            });
     });
-  });
+});
+
+describe('POST /login', () => {
+    it('should return welcome message with userName', (done) => {
+        chai.request(server)
+            .post('/login')
+            .send({ userName: 'Betty' })
+            .end((err, res) => {
+                expect(res).to.have.status(200);
+                expect(res.text).to.equal('Welcome Betty');
+                done();
+            });
+    });
 });
