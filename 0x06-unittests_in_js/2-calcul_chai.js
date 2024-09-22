@@ -1,17 +1,19 @@
-function calculateNumber(type, a, b) {
-  const roundedA = Math.round(a);
-  const roundedB = Math.round(b);
-
+function calculateNumber(type, a, b,) {
+  let roundedA = Math.round(a);
+  let roundedB = Math.round(b);
   if (type === 'SUM') {
     return roundedA + roundedB;
-  } else if (type === 'SUBTRACT') {
+  }
+  if (type === 'SUBTRACT') {
     return roundedA - roundedB;
-  } else if (type === 'DIVIDE') {
+  }
+  if (type === 'DIVIDE') {
     if (roundedB === 0) {
       return 'Error';
     }
     return roundedA / roundedB;
   }
+
 }
 
-export default calculateNumber;  // Use ES module export
+module.exports = calculateNumber;
