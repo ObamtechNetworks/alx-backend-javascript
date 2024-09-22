@@ -14,4 +14,4 @@ function calculateNumber(type, a, b) {
   }
 }
 
-export default calculateNumber;
+export default calculateNumber;  // Use ES module export

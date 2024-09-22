@@ -1,8 +1,8 @@
 {
   "devDependencies": {
+    "chai": "^5.1.1",
     "mocha": "^10.7.3"
   },
-  
   "scripts": {
     "test": "mocha *.test.js"
   },

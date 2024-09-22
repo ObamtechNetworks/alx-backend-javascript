@@ -1,5 +1,10 @@
+// Replace this:
+// const { expect } = require('chai');
+// const calculateNumber = require('./2-calcul_chai');
+
+// With this:
 import { expect } from 'chai';
-import calculateNumber from './2-calcul_chai';
+import calculateNumber from './2-calcul_chai.js';  // Add `.js` extension for ES modules
 
 describe('calculateNumber', () => {
   it('should round the numbers and return sum', () => {
