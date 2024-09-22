@@ -64,11 +64,10 @@ const databaseFile = process.argv[2];
 
 // create http server
 const app = http.createServer(async (req, res) => {
-  // set the response http header with the http status and content type
-  res.writeHead(200, { 'Content-Type': 'text/plain' });
-
   // handle routin based on the request URL
   if (req.url === '/') {
+    // set the response http header with the http status and content type
+    res.writeHead(200, { 'Content-Type': 'text/plain' });
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
     try {
@@ -76,7 +75,6 @@ const app = http.createServer(async (req, res) => {
       res.writeHead(200, { 'Content-Type': 'text/plain' });
       res.end(`This is the list of our students\n${studentList.trim('\n')}`);
     } catch (error) {
-      res.writeHead(500, { 'Content-Type': 'text/plain' });
       res.end('Cannot load the database');
     }
   } else {
