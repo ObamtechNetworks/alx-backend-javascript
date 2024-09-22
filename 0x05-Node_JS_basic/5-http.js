@@ -7,30 +7,23 @@ async function countStudents(path) {
 
   try {
     const data = await fs.readFile(path, 'utf8');
-    if (data) {
-      const lines = data.split('\n');
-      // eslint-disable-next-line no-plusplus
-      for (let i = 1; i < lines.length; i++) {
-        const line = lines[i].trim();
-        if (line) {
-          const [firstName, lastName, age, field] = line.split(',');
-          results.push({
-            firstName: firstName.trim(),
-            lastName: lastName.trim(),
-            age: age.trim(),
-            field: field.trim(),
-          });
+    const lines = data.split('\n').filter((line) => line.trim() !== ''); // Filter out empty lines
 
-          if (fieldCount[field]) {
-            fieldCount[field].count += 1;
-            fieldCount[field].students.push(firstName.trim());
-          } else {
-            fieldCount[field] = {
-              count: 1,
-              students: [firstName.trim()],
-            };
-          }
+    // eslint-disable-next-line no-plusplus
+    for (let i = 1; i < lines.length; i++) {
+      const line = lines[i].trim();
+      const [firstName, lastName, age, field] = line.split(',').map((item) => item.trim());
+
+      results.push({
+        firstName, lastName, age, field,
+      });
+
+      if (field) {
+        if (!fieldCount[field]) {
+          fieldCount[field] = { count: 0, students: [] };
         }
+        fieldCount[field].count += 1;
+        fieldCount[field].students.push(firstName);
       }
     }
 
@@ -47,7 +40,6 @@ async function countStudents(path) {
 
 const hostname = 'localhost';
 const port = 1245;
-const databaseFile = process.argv[2];
 
 const app = http.createServer(async (req, res) => {
   if (req.url === '/') {
@@ -55,20 +47,22 @@ const app = http.createServer(async (req, res) => {
     res.end('Hello Holberton School!');
   } else if (req.url === '/students') {
     try {
-      const studentList = (await countStudents(databaseFile)).trim('\n');
+      const studentList = await countStudents(process.argv[2]);
       res.writeHead(200, { 'Content-Type': 'text/plain' });
       res.end(`This is the list of our students\n${studentList}`);
     } catch (error) {
-    //   console.error(error); // Log the error for debugging
+      console.error(error);
       res.writeHead(500, { 'Content-Type': 'text/plain' });
-      res.end('Cannot load the database');
+      res.end(error.message);
     }
   } else {
-    // res.writeHead(404, { 'Content-Type': 'text/plain' });
-    // res.end('Endpoint not found');
+    res.writeHead(404, { 'Content-Type': 'text/plain' });
+    res.end('Endpoint not found');
   }
 });
 
-app.listen(port, hostname);
+app.listen(port, hostname, () => {
+  console.log(`Server running at http://${hostname}:${port}/`);
+});
 
 module.exports = app;
