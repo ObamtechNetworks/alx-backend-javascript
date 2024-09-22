@@ -1,15 +1,19 @@
-const Utils = {
-  calculateNumber: function (type, a, b) {
-    if (type === 'SUM') {
-      return Math.round(a) + Math.round(b);
+const Utils = {}
+
+Utils.calculateNumber = (type, a, b) => {
+  let roundedA = Math.round(a);
+  let roundedB = Math.round(b);
+  if (type === 'SUM') {
+    return roundedA + roundedB;
+  }
+  if (type === 'SUBTRACT') {
+    return roundedA - roundedB;
+  }
+  if (type === 'DIVIDE') {
+    if (roundedB === 0) {
+      return 'Error';
     }
-    if (type === 'SUBTRACT') {
-      return Math.round(a) - Math.round(b);
-    }
-    if (type === 'DIVIDE') {
-      if (Math.round(b) === 0) return 'Error';
-      return Math.round(a) / Math.round(b);
-    }
+    return roundedA / roundedB;
   }
 };
 
