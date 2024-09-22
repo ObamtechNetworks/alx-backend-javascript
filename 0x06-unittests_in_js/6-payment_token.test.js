@@ -1,12 +1,13 @@
 const getPaymentTokenFromAPI = require('./6-payment_token');
+const { expect } = require('chai');
 
 describe('getPaymentTokenFromAPI', () => {
   it('should return a successful response when success is true', (done) => {
     getPaymentTokenFromAPI(true)
       .then((response) => {
-        expect(response.data).to.equal('Successful response from the API');
-        done();
+        expect(response.data).to.deep.equal({ data: 'Successful response from the API' });
+        done(); // Call done to indicate that the test has completed
       })
-      .catch((error) => done(error));
+      .catch(done);
   });
 });
