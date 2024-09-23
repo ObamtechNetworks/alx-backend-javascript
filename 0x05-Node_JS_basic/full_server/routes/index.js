@@ -1,9 +1,6 @@
-// full_server/routes/index.js
 import express from 'express';
-// eslint-disable-next-line import/extensions
-import { AppController } from '../controllers/AppController.js';
-// eslint-disable-next-line import/extensions
-import { StudentsController } from '../controllers/StudentsController.js';
+import AppController from '../controllers/AppController.js';
+import StudentsController from '../controllers/StudentsController.js';
 
 const router = express.Router();
 
