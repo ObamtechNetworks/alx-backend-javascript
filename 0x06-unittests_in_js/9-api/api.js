@@ -1,23 +1,24 @@
+// Importing express
 const express = require('express');
-app = express();
+const app = express();
 
-// set default port
-port = 7865;
+// Define a port
+const port = 7865;
 
-// default url
-app.get('/', (req, res) => {
-  res.send('Welcome to the payment system');
-});
-
-// handle regex and matching
+// Define the /cart/:id route
 app.get('/cart/:id(\\d+)', (req, res) => {
-  const id = req.params.id;
-  res.send(`Payment methods for cart ${id}`);
+  const cartId = req.params.id;
+  res.send(`Payment methods for cart ${cartId}`);
 });
 
-// listen to port whencalled
+// Handle non-numeric cart ID (this will handle routes like /cart/hello)
+app.use('/cart/:id', (req, res) => {
+  res.status(404).send('Not Found');
+});
+
+// Start the server
 app.listen(port, () => {
   console.log(`API available on localhost port ${port}`);
-})
+});
 
 module.exports = app;
