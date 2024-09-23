@@ -1,35 +1,40 @@
-const request = require('supertest');
-const app = require('./api');
-let server;
+const { expect } = require('chai');
+const request = require('request');
 
-before((done) => {
-  server = app.listen(7865, done);
-});
-
-after((done) => {
-  server.close(done);
-});
-
-describe('GET /', () => {
-  it('should return status code 200 and welcome message', (done) => {
-    request(app)
-      .get('/')
-      .expect(200)
-      .expect('Welcome to the payment system', done);
+describe('Testing API', () => {
+  const url = 'http://localhost:7865';
+  it('Checks and test the main page status code and body ', (done) => {
+    request(url, (err, res, body) => {
+      expect(res.statusCode).to.equal(200);
+      expect(body).to.equal('Welcome to the payment system');
+      done();
+    });
   });
 });
 
-describe('GET /cart/:id', () => {
-  it('should return status code 200 and the correct response when :id is a number', (done) => {
-    request(app)
-      .get('/cart/12')
-      .expect(200)
-      .expect('Payment methods for cart 12', done);
+
+describe('Testing Cart route', () => {
+  const url = 'http://localhost:7865/cart/77'
+  it('Checks when id is a valid number', (done) => {
+    request(url, (err, res, body) => {
+      expect(res.statusCode).to.equal(200);
+      done();
+    })
   });
 
-  it('should return status code 404 when :id is not a number', (done) => {
-    request(app)
-      .get('/cart/hello')
-      .expect(404, done);
+  it('Checks when id is not a number', (done) => {
+    const url = 'http://localhost:7865/cart/hh'
+    request(url, (err, res, body) => {
+      expect(res.statusCode).to.equal(404);
+      done();
+    })
+  });
+
+  it('Checks for correct response body for cart page', (done) => {
+    const url = 'http://localhost:7865/cart/87';
+    request(url, (err, res, body) => {
+      expect(body).to.equal('Payment methods for cart 87');
+      done();
+    });
   });
 });

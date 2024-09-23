@@ -1,27 +1,19 @@
 const express = require('express');
-const app = express();
-const port = 7865;
+app = express();
 
+port = 7865;
 
 app.get('/', (req, res) => {
   res.send('Welcome to the payment system');
 });
 
-// Define a route for GET /cart/:id
 app.get('/cart/:id(\\d+)', (req, res) => {
-  const cartId = req.params.id;
-  res.send(`Payment methods for cart ${cartId}`);
+  const id = req.params.id;
+  res.send(`Payment methods for cart ${id}`);
 });
 
-// Catch-all for non-numeric cart IDs
-app.use('/cart/:id', (req, res) => {
-  res.status(404).send('Not Found');
-});
+app.listen(port, () => {
+  console.log(`API available on localhost port ${port}`);
+})
 
-// Define a default route
-app.get('/', (req, res) => {
-  res.send('Welcome to the payment system');
-});
-
-// Export the app
 module.exports = app;
