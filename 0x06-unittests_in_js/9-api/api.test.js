@@ -1,13 +1,22 @@
 const request = require('supertest');
-const app = require('./api'); // Import the app from api.js
+const app = require('./api');
 let server;
 
 before((done) => {
-  server = app.listen(7865, done); // Start the server before tests
+  server = app.listen(7865, done);
 });
 
 after((done) => {
-  server.close(done); // Close the server after tests
+  server.close(done);
+});
+
+describe('GET /', () => {
+  it('should return status code 200 and welcome message', (done) => {
+    request(app)
+      .get('/')
+      .expect(200)
+      .expect('Welcome to the payment system', done);
+  });
 });
 
 describe('GET /cart/:id', () => {
