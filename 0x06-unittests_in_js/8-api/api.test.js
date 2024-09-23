@@ -1,15 +1,13 @@
+const chai = require('chai');
 const request = require('request');
-const { expect } = require('chai');
-const app = require('./api'); // Import the Express app
 
-describe('Index page', () => {
+const url = 'http://localhost:7865';
+describe('Testing index page', () => {
   it('should return status 200 and correct message', (done) => {
-    request('http://localhost:7865', (error, response, body) => {
-      // Expect status code to be 200
-      expect(response.statusCode).to.equal(200);
-      // Expect body to match "Welcome to the payment system"
-      expect(body).to.equal('Welcome to the payment system');
-      done(); // Mark test as done
-    });
-  });
+    request(url, (err, res, body) => {
+      chai.expect(res.statusCode).to.equal(200);
+      chai.expect(body).to.equal('Welcome to the payment system');
+      done();
+    })
+})
 });
