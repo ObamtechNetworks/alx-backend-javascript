@@ -1,45 +1,14 @@
-const chai = require('chai');
-const request = require('request');
+const express = require('express');
+app = express();
 
+port = 7865;
 
-describe('Testing index page', () => {
-  const url = 'http://localhost:7865';
-  it('Checks and test the main page status code and body ', (done) => {
-    request(url, (err, res, body) => {
-      chai.expect(res.statusCode).to.equal(200);
-      chai.expect(body).to.equal('Welcome to the payment system');
-      done();
-    })
+app.get('/', (req, res) => {
+  res.send('Welcome to the payment system');
+});
+
+app.listen(port, () => {
+  console.log(`API available on localhost port ${port}`);
 })
-});
 
-
-describe('GET /available_payments', () => {
-    it('should return available payment methods', (done) => {
-        chai.request(server)
-            .get('/available_payments')
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-                expect(res.body).to.deep.equal({
-                    payment_methods: {
-                        credit_cards: true,
-                        paypal: false
-                    }
-                });
-                done();
-            });
-    });
-});
-
-describe('POST /login', () => {
-    it('should return welcome message with userName', (done) => {
-        chai.request(server)
-            .post('/login')
-            .send({ userName: 'Betty' })
-            .end((err, res) => {
-                expect(res).to.have.status(200);
-                expect(res.text).to.equal('Welcome Betty');
-                done();
-            });
-    });
-});
+module.exports = app;
